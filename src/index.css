@@ -1,0 +1,16 @@
+#root , html , body{
+    height: 100vh; 
+} /* This is so that the application takes the whole page */
+
+body{
+    margin: 0;
+    background-color:  whitesmoke;
+}
+
+*{
+    box-sizing: border-box;
+}  /*The box-sizing property defines how the width and height of an element are calculated*/
+ 
+html{
+    scroll-behavior: smooth;
+} /*This is added so that when we scroll or alan scrolls the scroll-bar then it is a smooth transition */
