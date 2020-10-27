@@ -29,6 +29,9 @@ export default App;
 
 
 
+
+
+
 // SOME SELF NOTES
 // 1) onCommand () =>();      
 /*This will work with either with switch or if and it will run as many commands as we want*/
@@ -51,42 +54,133 @@ intent("start a commnd" , (p)=>{
         command: "testCommand"
     });
 });
-and in the js file inside oncammand we pass a param command inside the alan button 
+and in the js file inside onCommand we pass a param command inside the alan button 
  onCommand : ({command}) =>{
                 if(command === 'testCommand'){
                     alert("this code was executed");
                 }
             }
         })
+-----------------------------------------------------------------------ALAN AI ---------------------------------------------------------------------
+// Use this sample to create your own voice commands
+intent('Hello ', 'Hey', p=>  {
+    p.play('(hello|hi there)');
+});
+intent('What does this app do ', 'Tell me the details of the application', p=>  {
+    p.play('This application is a customized voice controlled AI that lets you automate things by asking the queries that are mentioned in the above cards, This application will follow your command and react accordingly');
+});
+
+// intent("start a command" , (p)=>{
+//     p.play({
+//         command: "testCommand"
+//     });
+// });
 
 
- 4)Using external API in ALAN
- fetch the api key and store in a const value
- then use
-const API_KEY='a72bbd5e080e4cb2934540fd2d4e4670'; // This is the api key to NEWS API 
-let savedArticles=[];
+//This is added of the developer information 
+intent("Tell me about the developer", "What is the name of the developer" , "Name of the developer" , "who developed this app" ,"developer" , reply("Vatsal Gupta an undergrad student in Computer Science developed this application with the help of Alan AI and ReactJS")); 
+
+const API_KEY=''; // This is the api key to NEWS API 
+let savedArticles=[];  // Initialised this empty array (This is where the articles are going to be stored )
 
 intent('Give me the news from $(source* (.*))',(p)=>{
-    let NEWS_API_URL =`https://newsapi.org/v2/top-headlines?apiKey=${API_KEY}`;  //here ES6 is added for personalising the api key
-     if(p.source.value){
-        NEWS_API_URL =`${NEWS_API_URL}&sources=${p.source.value.toLowerCase().split(" ").join("-")}`;      //here we are appending the url with source from voice and then we are splitting it so that the spaces between the words become a sentence and and then joining it again with a - so that it becomes a string like the url
-
+        let NEWS_API_URL =`https://newsapi.org/v2/top-headlines?apiKey=${API_KEY}`;
+    if(p.source.value){
+        NEWS_API_URL =`${ NEWS_API_URL}&sources=${p.source.value.toLowerCase().split(" ").join("-")}`;
     }
-     api.request(NEWS_API_URL,(error,response,body)=>{      //This is how apis are called in alan this is the syntax
-        const {articles} = JSON.parse(body);            // This line will get the article from the body of the Json file after it's done parsing
-        if(!articles.length){                            //This will check if the user's given source is valid or not
-            p.play('Sorry, Please try from some other source'); 
+    api.request(NEWS_API_URL,(error,response,body)=>{
+        const {articles} = JSON.parse(body);
+        if(!articles.length){
+            p.play('Sorry, Please try from some other source');
             return;
         }
-        savedArticles=articles;                                // initialised an empty array earlier now articles from the s=json file would be saved here
+        savedArticles=articles; 
         p.play({
-            command:'newHeadlines',                            // This is how the command is given so that 
-            articles                                         
+            command:'newHeadlines',
+            articles
         });
         p.play(
-            `Here are the latest (latest|related) ${p.source.values} news`      // it will play the latest news from the source
+            `Here are the (latest | related) news from ${p.source.value} `
         )
     });
-
+});
+// News by terms
+intent('What\'s up with $(term* (.*))',(p)=>{
+        let NEWS_API_URL =`https://newsapi.org/v2/everything?apiKey=${API_KEY}`;
+    if(p.term.value){
+        NEWS_API_URL =`${ NEWS_API_URL}&q=${p.term.value}`;
+    }
+    api.request(NEWS_API_URL,(error,response,body)=>{
+        const {articles} = JSON.parse(body);
+        if(!articles.length){
+            p.play('Sorry, Please try from some other term');
+            return;
+        }
+        savedArticles=articles; 
+        p.play({
+            command:'newHeadlines',
+            articles
+        });
+        p.play(
+            `Here are the (latest | related) articles on ${p.term.value} `
+        )
     });
+});
+
+//News By category 
+
+// News by Categories
+const CATEGORIES = ['business', 'entertainment', 'general', 'health', 'science', 'sports', 'technology'];
+const CATEGORIES_INTENT = `${CATEGORIES.map((category) => `${category}~${category}`).join('|')}|`;
+
+intent(`(show|what is|tell me|what's|what are|what're|read) (the|) (recent|latest|) $(N news|headlines) (in|about|on|) $(C~ ${CATEGORIES_INTENT})`,
+  `(read|show|get|bring me|give me) (the|) (recent|latest) $(C~ ${CATEGORIES_INTENT}) $(N news|headlines)`, (p) => {
+    let NEWS_API_URL = `https://newsapi.org/v2/top-headlines?apiKey=${API_KEY}&country=in`;
+    
+    if(p.C.value) {
+        NEWS_API_URL = `${NEWS_API_URL}&category=${p.C.value}`
+    }
+    
+    api.request(NEWS_API_URL, (error, response, body) => {
+        const { articles } = JSON.parse(body);
+        
+        if(!articles.length) {
+            p.play('Sorry, please try searching for a different category.');
+            return;
+        }
+        
+        savedArticles = articles;
+        
+        p.play({ command: 'newHeadlines', articles });
+        
+        if(p.C.value) {
+            p.play(`Here are the (latest|recent) articles on ${p.C.value}.`);        
+        } else {
+            p.play(`Here are the (latest|recent) news`);   
+        }
+        
+        p.play('Would you like me to read the headlines?');
+      //  p.then(confirmation);
+    });
+});
+// Latest news from India 
+intent('Give me the news from India',(p)=>{
+        let NEWS_API_URL =`http://newsapi.org/v2/top-headlines?country=in&apiKey=${API_KEY}`;
+    api.request(NEWS_API_URL,(error,response,body)=>{
+        const {articles} = JSON.parse(body);
+        if(!articles.length){
+            p.play('Sorry, Please try from some other term');
+            return;
+        }
+        savedArticles=articles; 
+        p.play({
+            command:'newHeadlines',
+            articles
+        });
+        p.play(
+            `Here are the (latest | related) news from India `
+        )
+    });
+});
+
 */

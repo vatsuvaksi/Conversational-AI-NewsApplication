@@ -3,11 +3,11 @@ import NewsCard from '../NewsCard/NewsCard';
 import { Grid, Grow, Typography } from '@material-ui/core';
 import useStyles from './style.js'
 const infoCards = [
-    { color: '#1565c0', title: 'News by Categories', info: 'Business, Entertainment, General, Health, Science, Sports, Technology', text: 'Give me the latest Technology news' },
+    { color: '#00838f', title: 'News by Categories', info: 'Business, Entertainment, General, Health, Science, Sports, Technology', text: 'Give me the latest Technology news' },
     { color: '#4527a0', title: 'News by Terms', info: 'Bitcoin, PlayStation 5, Smartphones, Donald Trump...', text: 'What\'s up with PlayStation 5' },
-    { color: '#1565c0', title: 'News by Indian ', info: 'aaj tak, ndtv', text: 'Give me the latest Indian news from ndtv' },
+    { color: '#1565c0', title: 'News from India ', info: '', text: 'Give me the news from India ' },
     { color: '#283593', title: 'News by Sources', info: 'CNN, Wired, BBC News, Time, IGN, Buzzfeed, ABC News...', text: 'Give me the news from CNN' },
-    { color: '#00838f', title: 'Latest News', text: 'Give me the latest news' },
+   
 ];
 const NewsCards = ({ articles, activeArticle }) => {
     const classes = useStyles();
