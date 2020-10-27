@@ -17,10 +17,9 @@ const App = () => {
     }, []);
     const classes=useStyles();
     return (
-        <>
-            <h1>Conversational AI based news Application</h1>
+        <> 
            <div className={classes.logoContainer} >
-<img src="" className={classes.myLogo} />
+<img src="https://i.ibb.co/BrswdVZ/logo.jpg" className={classes.myLogo} />
            </div>
             <NewsCards articles={newsArticles} />
         </>
