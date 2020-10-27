@@ -82,25 +82,30 @@ intent("Tell me about the developer", "What is the name of the developer" , "Nam
 
 const API_KEY=''; // This is the api key to NEWS API 
 let savedArticles=[];  // Initialised this empty array (This is where the articles are going to be stored )
-
-intent('Give me the news from $(source* (.*))',(p)=>{
-        let NEWS_API_URL =`https://newsapi.org/v2/top-headlines?apiKey=${API_KEY}`;
-    if(p.source.value){
-        NEWS_API_URL =`${ NEWS_API_URL}&sources=${p.source.value.toLowerCase().split(" ").join("-")}`;
+// Latest news by source 
+intent('Give me the news from $(source* (.*))',(p)=>{                                   //This is the syntax in ALAN AI 
+        let NEWS_API_URL =`https://newsapi.org/v2/top-headlines?apiKey=${API_KEY}`;        //This is the API-URL from news api
+    if(p.source.value){                                                                    // This loop checks if the value from source of P is not null
+        NEWS_API_URL =`${ NEWS_API_URL}&sources=${p.source.value.toLowerCase().split(" ").join("-")}`;       
+        // Here NEWS_API_URL is appended with source = {value from the user } anfter that
+        // First of all it is converted to lower case so that url like pattern can be made then
+        // Secondly is is split by ' space ' into an array which is not stored
+        //Thirdly it is rejoined using a - so tht the URL like pattern is created  
     }
-    api.request(NEWS_API_URL,(error,response,body)=>{
-        const {articles} = JSON.parse(body);
-        if(!articles.length){
+    api.request(NEWS_API_URL,(error,response,body)=>{                  //This is the way to send API request to the servers 
+        const {articles} = JSON.parse(body);                           //Here we are parsing the article [] from the url and taking it's body
+        if(!articles.length){                                          // this if is used to check wether the article is valid or not 
             p.play('Sorry, Please try from some other source');
-            return;
+            return;                                                     //By  returning it takes it out of this intent 
         }
-        savedArticles=articles; 
+        savedArticles=articles;                                         // saved articles now receives the value from the article 
         p.play({
-            command:'newHeadlines',
+            command:'newHeadlines',                                      //This will pass the command and pass the current saved article to the JS file
+                                                                         //In the JS file through useEffect we have passed the command and article in the  alan button at the start only
             articles
         });
         p.play(
-            `Here are the (latest | related) news from ${p.source.value} `
+            `Here are the (latest | related) news from ${p.source.value} `      //This will play and the newscards.js file will be loaded on the sccreen
         )
     });
 });
@@ -165,7 +170,7 @@ intent(`(show|what is|tell me|what's|what are|what're|read) (the|) (recent|lates
 });
 // Latest news from India 
 intent('Give me the news from India',(p)=>{
-        let NEWS_API_URL =`http://newsapi.org/v2/top-headlines?country=in&apiKey=${API_KEY}`;
+        let NEWS_API_URL =`http://newsapi.org/v2/top-headlines?country=in&apiKey=${API_KEY}`;         //Here we do not need to append anything as it will display the news from India 
     api.request(NEWS_API_URL,(error,response,body)=>{
         const {articles} = JSON.parse(body);
         if(!articles.length){
