@@ -7,7 +7,7 @@ const infoCards = [
     { color: '#4527a0', title: 'News by Terms', info: 'Bitcoin, PlayStation 5, Smartphones, Donald Trump...', text: 'What\'s up with PlayStation 5' },
     { color: '#1565c0', title: 'News from India ', info: '', text: 'Give me the news from India ' },
     { color: '#283593', title: 'News by Sources', info: 'CNN, Wired, BBC News, Time, IGN, Buzzfeed, ABC News...', text: 'Give me the news from CNN' },
-   
+
 ];
 const NewsCards = ({ articles, activeArticle }) => {
     const classes = useStyles();
