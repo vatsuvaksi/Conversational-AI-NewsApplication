@@ -1,7 +1,6 @@
 # Project 
 ![Screenshot (213)](https://user-images.githubusercontent.com/62776100/97351135-5b03f580-18b7-11eb-9fab-1725c8d1d486.png)
-![Screenshot (215)](https://user-images.githubusercontent.com/62776100/97698190-2ae26f80-1ace-11eb-9c72-d4e90a8e2242.png)
-![Screenshot (218)](https://user-images.githubusercontent.com/62776100/97698196-2b7b0600-1ace-11eb-82c8-f9e4a8b60e56.png)
+
 
 # Getting Started with Create React App
 
