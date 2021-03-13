@@ -1,4 +1,9 @@
 # Project 
+### This is a Web-based Application that lets the user control all the feautures in the app through voice controls. </br>
+### It gives the user a choice to select the genre/location/category/sources of the news. </br>
+### The application has a feature to read the news cards as well and if the user gives a voice command to open a particular news card then the application redirects to that particular news item's source.</br>
+### the application has the feature to highlight the present newscard that it is reading so that the user has the visualization as well. </br>
+
 ![Screenshot (213)](https://user-images.githubusercontent.com/62776100/97351135-5b03f580-18b7-11eb-9fab-1725c8d1d486.png)
 
 
