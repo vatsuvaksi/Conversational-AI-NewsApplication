@@ -8,6 +8,7 @@
 * The app offers a response for 150+ commands like **Hey, who is the developer of this application** or **What is going on in America** or **How is the weather**  .
 * The application is integrated with **ALAN.APP** for the voice control commands which is a very reliable application.
 
+![Screenshot (213)](https://user-images.githubusercontent.com/62776100/97351135-5b03f580-18b7-11eb-9fab-1725c8d1d486.png)
 
 ### Some FAQs
 
