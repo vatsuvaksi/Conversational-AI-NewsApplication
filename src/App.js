@@ -3,7 +3,7 @@ import alanBtn from '@alan-ai/alan-sdk-web';                            //This w
 import NewsCards from './Components/NewsCards/NewsCards';
 import useStyles from './style';
 import wordsToNumbers from 'words-to-numbers';                        // This is a package to convert numbers to word (useful to open articles)
-const alanKey = 'a6b85e7735320e3cec61034b9ac003592e956eca572e1d8b807a3e2338fdd0dc/stage';                    //This is the personal key to the project for integration with this react Application
+const alanKey = 'somekeyhere/stage';                    //This is the personal key to the project for integration with this react Application
 const App = () => {
     const [newsArticles, setNewsArticles] = useState([]);
     const [activeArticle, setActiveArticle] = useState(-1);
